@@ -1,13 +1,10 @@
-import React, {useEffect, useState} from 'react';
-import logo from './logo.svg';
+import React from 'react';
+import {BrowserRouter as Router, Redirect, Route, Switch} from "react-router-dom";
+import IndicatesGallery from "./components/incidents-gallery";
+import SingleIncident from "./components/single-incident";
 import './App.scss';
-import {BrowserRouter as Router, Route, Switch} from "react-router-dom";
-import IndicatesGallery from "./components/incidents-gallery/";
-import SingleIncident from "./components/single-incident/";
-// import SingleIncident from "./components/single-incident/";
 
 function App() {
-
     return (
         <Router>
             <div className="App">
@@ -18,6 +15,7 @@ function App() {
                     <Route path="/gallery/:pageIndex?">
                         <IndicatesGallery/>
                     </Route>
+                    <Redirect to="/gallery/1"/>
                 </Switch>
             </div>
         </Router>

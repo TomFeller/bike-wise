@@ -1,5 +1,5 @@
-import React, {useState} from "react";
-import {Link, useHistory} from "react-router-dom"
+import React from "react";
+import {useHistory} from "react-router-dom"
 import Pagination from "react-bootstrap/Pagination"
 
 type IProps = {
@@ -22,7 +22,6 @@ const GalleryPagination: React.FC<IProps> = ({length, pageIndex}) => {
             </Pagination.Item>
         );
     }
-
 
     return (
         <Pagination size={"sm"}>

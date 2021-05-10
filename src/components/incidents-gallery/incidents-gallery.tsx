@@ -1,19 +1,16 @@
 import React from "react";
-import {CardDeck, Col, Row} from "react-bootstrap";
-import {Link, useParams, useLocation} from "react-router-dom";
-import useIncidentsService from "../../services/incidents-service";
+import {Col, Row} from "react-bootstrap";
+import {Link, useParams} from "react-router-dom";
 import {IIncident} from "../../types/incidents";
+import useIncidentsService from "../../services/incidents-service";
 import IncidentThumbnail from "./incident-thumbnail";
-import "./incidents-gallery.scss";
-
-import Figure from "react-bootstrap/Figure";
 import GalleryPagination from "./gallery-pagination";
+import "./incidents-gallery.scss";
 
 export const IndicatesGallery: React.FC = () => {
     const params = useParams<{ pageIndex: string }>();
     const pageIndex = params.pageIndex;
     const fetch = useIncidentsService(-1, parseInt(pageIndex));
-
 
     return (
         <div className={"container incidents-gallery"}>
