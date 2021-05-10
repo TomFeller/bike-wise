@@ -1,0 +1,20 @@
+/* make the customizations */
+$theme-colors: (
+        "info": tomato,
+        "danger": teal
+);
+
+.align-left {
+  text-align: left;
+}
+
+.align-center {
+  text-align: center;
+}
+
+.align-right {
+  text-align: right;
+}
+
+/* import bootstrap to set changes */
+@import "~bootstrap/scss/bootstrap";
