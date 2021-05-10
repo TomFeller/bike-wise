@@ -1,13 +1,13 @@
 import React from "react";
-import {IIncident} from "../types/incidents";
 import {useHistory} from "react-router-dom";
-import useIncidentsService from "../services/incidents-service";
+import {IIncident} from "../../types/incidents";
+import useIncidentsService from "../../services/incidents-service";
 
 
-const SingleIncident: React.FC = () => {
+export const SingleIncident: React.FC = () => {
     const history = useHistory();
     const incidentId = history.location.pathname.replace("/incident/", "");
-    const fetch = useIncidentsService(incidentId);
+    const fetch = useIncidentsService(parseInt(incidentId));
 
     return (
         <div className={"container"}>
@@ -20,15 +20,22 @@ const SingleIncident: React.FC = () => {
 };
 
 const Incident: React.FC<IIncident> = (
-    {id, title, address, media, description}) => {
+    {
+        id,
+        title,
+        address,
+        media,
+        description,
+        location_description
+    }) => {
+    const {image_url} = media;
     return (
         <div>
             <h1>{title}</h1>
             <p>{description}</p>
             <p>Address: {address}</p>
-            {media.image_url && <img width={"100%"} src={media.image_url}/>}
+            {location_description && <p>{location_description}</p>}
+            {image_url && <img width={"100%"} src={image_url}/>}
         </div>
     )
 }
-
-export default SingleIncident;

@@ -1,8 +1,7 @@
 import React from "react";
-import {Link} from "react-router-dom";
-import {IIncident} from "../types/incidents";
 import Figure from "react-bootstrap/Figure";
-import THUMBNAIL from "../assets/thumbnail.jpg";
+import {IIncident} from "../../types/incidents";
+import THUMBNAIL from "../../assets/thumbnail.jpg";
 import moment from "moment";
 
 const IncidentThumbnail: React.FC<IIncident> = (
@@ -24,18 +23,16 @@ const IncidentThumbnail: React.FC<IIncident> = (
     return (
         <Figure className={"d-flex"}>
             <Figure.Image
-                width={171}
-                height={180}
+                width={150}
+                height={150}
                 alt={title}
                 src={media.image_url_thumb || THUMBNAIL}
             />
             <Figure.Caption className={"p-3 align-left"}>
-                <Link to={`/incident/${id}`}>
-                <h6>{title}</h6>
-                <p>updated_at: {moment(updated_at).calendar()}</p>
-                <p>occurred_at: {moment(occurred_at).calendar()}</p>
-                </Link>
-            </Figure.Caption>
+                    <h6>{title}</h6>
+                    <p>updated_at: {moment(updated_at).calendar()}</p>
+                    <p>occurred_at: {moment(occurred_at).calendar()}</p>
+             </Figure.Caption>
 
         </Figure>
     )

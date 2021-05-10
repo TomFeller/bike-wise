@@ -1,9 +1,10 @@
 import React, {useEffect, useState} from 'react';
 import logo from './logo.svg';
 import './App.scss';
-import IndicatesGallery from "./components/incidents-gallery";
 import {BrowserRouter as Router, Route, Switch} from "react-router-dom";
-import SingleIncident from "./components/single-incident";
+import IndicatesGallery from "./components/incidents-gallery/";
+import SingleIncident from "./components/single-incident/";
+// import SingleIncident from "./components/single-incident/";
 
 function App() {
 
@@ -14,7 +15,7 @@ function App() {
                     <Route path="/incident/:id">
                         <SingleIncident/>
                     </Route>
-                    <Route path="/">
+                    <Route path="/gallery/:pageIndex?">
                         <IndicatesGallery/>
                     </Route>
                 </Switch>
