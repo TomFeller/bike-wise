@@ -26,6 +26,7 @@ const GalleryPagination: React.FC<IProps> = ({length, pageIndex}) => {
 
 
     return (
+        <div className={"d-flex justify-content-center"}>
         <Pagination size={"sm"}>
             {pageIndex > 1 &&
             <Pagination.Prev onClick={() => navigate(pageIndex - 1)}>{"<"}</Pagination.Prev>
@@ -33,6 +34,7 @@ const GalleryPagination: React.FC<IProps> = ({length, pageIndex}) => {
             {items}
             <Pagination.Next onClick={() => navigate(pageIndex + 1)}>{">"}</Pagination.Next>
         </Pagination>
+        </div>
     )
 }
 

@@ -13,16 +13,10 @@ const IncidentDetails: React.FC<IProps> = (
     const occurredAt = moment(parseInt(occurred_at + "000")).calendar();
     const updatedAt = moment(parseInt(updated_at + "000")).calendar();
     return (
-        <div>
-            <p className={"align-left"}><span className={"bold"}>Stolen From:</span> {address}</p>
-            <p className={"align-left"}>
-                <span className={"bold"}>{`Date of theft: `}</span>
-                {occurredAt}
-            </p>
-            <p className={"align-left"}>
-                <span className={"bold"}>{`Date of report of theft: `}</span>
-                {updatedAt}
-            </p>
+        <div className={"align-left"}>
+            <p><span className={"bold"}>Stolen From:</span> {address}</p>
+            <p><span className={"bold"}>{`Date of theft: `}</span>{occurredAt}</p>
+            <p><span className={"bold"}>{`Date of report of theft: `}</span>{updatedAt}</p>
         </div>
     )
 }
