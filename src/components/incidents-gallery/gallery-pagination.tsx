@@ -11,11 +11,12 @@ const GalleryPagination: React.FC<IProps> = ({length, pageIndex}) => {
     const history = useHistory();
     let items = [];
     const navigate = (index: number) => history.push(`/gallery/${index}`);
-    for (let number = 1; number <= length; number++) {
+    for (let number = pageIndex; number <= length + pageIndex; number++) {
         items.push(
             <Pagination.Item key={number}
                              active={number === pageIndex}
                              className={"p-0"}
+                             style={itemStyle}
                              activeLabel={""}
                              onClick={() => navigate(number)}>
                 {number}
@@ -23,13 +24,18 @@ const GalleryPagination: React.FC<IProps> = ({length, pageIndex}) => {
         );
     }
 
+
     return (
         <Pagination size={"sm"}>
-            <Pagination.Prev onClick={() => navigate(pageIndex - 1)} />
+            {pageIndex > 1 &&
+            <Pagination.Prev onClick={() => navigate(pageIndex - 1)}>{"<"}</Pagination.Prev>
+            }
             {items}
-            <Pagination.Next onClick={() => navigate(pageIndex + 1)}/>
+            <Pagination.Next onClick={() => navigate(pageIndex + 1)}>{">"}</Pagination.Next>
         </Pagination>
     )
 }
+
+const itemStyle = {width:"32px", height:"32px"}
 
 export default GalleryPagination;

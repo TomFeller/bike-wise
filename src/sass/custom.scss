@@ -16,5 +16,9 @@ $theme-colors: (
   text-align: right;
 }
 
+.bold {
+  font-weight: bold;
+}
+
 /* import bootstrap to set changes */
 @import "~bootstrap/scss/bootstrap";

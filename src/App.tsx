@@ -12,7 +12,7 @@ function App() {
                     <Route path="/incident/:id">
                         <SingleIncident/>
                     </Route>
-                    <Route path="/gallery/:pageIndex?">
+                    <Route path="/gallery/:pageIndex?/:query?">
                         <IndicatesGallery/>
                     </Route>
                     <Redirect to="/gallery/1"/>

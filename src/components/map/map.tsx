@@ -1,11 +1,11 @@
 import React, {useState} from 'react'
 import GoogleMapReact from 'google-map-react';
 import Geocode from "react-geocode"
-import {FaMapPin} from 'react-icons/fa';
 import './map.scss';
+import LocationPin from "./location-pin";
 
 
-interface ILocation {
+export interface ILocation {
     address: string,
     lat: number,
     lng: number,
@@ -43,26 +43,14 @@ const Map: React.FC<IProps> = ({location, zoomLevel = 8}) => {
             <GoogleMapReact bootstrapURLKeys={{key: api_key}}
                             defaultCenter={{...location, lat: lat, lng: lng}}
                             defaultZoom={zoomLevel}>
-                <LocationPin
-                    lat={lat}
-                    lng={lng}
-                    address={location.address}
-                />
+                <LocationPin lat={lat}
+                             lng={lng}
+                             address={location.address}/>
             </GoogleMapReact>
         </div>
     </div>
 };
 
-const LocationPin: React.FC<ILocation> = (
-    {
-        address,
-        lat,
-        lng
-    }) => (
-    <div className="pin">
-        <FaMapPin size={45}/>
-        <p className="pin-text">{address}</p>
-    </div>
-)
+
 
 export default Map;
