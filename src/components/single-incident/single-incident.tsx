@@ -3,6 +3,7 @@ import {useParams} from "react-router-dom";
 import useIncidentsService from "../../services/incidents-service";
 import Incident from "./incident";
 import SingleLoading from "./single-loading";
+import ErrorMessage from "../error-message/error-message";
 
 export const SingleIncident: React.FC = () => {
     const params = useParams<{id:string}>();
@@ -12,7 +13,7 @@ export const SingleIncident: React.FC = () => {
         <div className={"container"}>
             {fetch.status === 'loading' && <SingleLoading/>}
             {fetch.status === 'loaded' && <Incident key={fetch.payload.incident.id} {...fetch.payload.incident}/>}
-            {fetch.status === 'error' && <div>ERROR</div>}
+            {fetch.status === 'error' && <ErrorMessage/>}
         </div>
     )
 };

@@ -9,40 +9,68 @@ interface IProps {
     searchValue: string,
     onSearchChange: (value: string) => void,
     onSearchSubmit: () => void,
-    pageIndex: number
+    pageIndex: number,
+    setFromDate: (date: number) => void
+    setToDate: (date: number) => void
 }
 
-const GallerySearchForm: React.FC<IProps> = ({searchValue, onSearchChange, onSearchSubmit, pageIndex}) => {
+interface IDate {
+    day: number,
+    month: number,
+    year: number
+}
+
+const GallerySearchForm: React.FC<IProps> = (
+    {
+        searchValue,
+        onSearchChange,
+        onSearchSubmit,
+        setFromDate,
+        setToDate
+    }) => {
 
     const [selectedDayRange, setSelectedDayRange] = useState<any>({
         from: null,
         to: null
     });
-
+    const {from, to} = selectedDayRange
+    const dateConverter = (date: IDate) => `${date.year}-${date.month}-${date.day}`;
     useEffect(() => {
-console.log("selectedDayRange", selectedDayRange);
-    }, [selectedDayRange])
+        if (from) {
+            const d = new Date(dateConverter(from)).getTime().toString();
+            setFromDate(parseInt(d.slice(0, -3)));
+        }
+        if (to) {
+            const d = new Date(dateConverter(to)).getTime().toString();
+            setToDate(parseInt(d.slice(0, -3)));
+        }
+    }, [from, selectedDayRange, setFromDate, setToDate, to]);
 
+    const getFormatInputText = () => {
+        return (from && to) ? `${dateConverter(from).replaceAll("-","/")} - ${dateConverter(to).replaceAll("-","/")}` : ""
+    }
     return (
         <Row className={"d-flex align-items-center flex-wrap"}>
             <Col>
-            <Form className={"mb-3 w-100"}>
-                <div className={"d-flex align-items-center justify-content-between"}>
-                    <DatePicker
-                        value={selectedDayRange}
-                        onChange={setSelectedDayRange}
-                         shouldHighlightWeekends
-                    />
-                    <div className={"d-flex"}>
-                    <Form.Control placeholder="Search..."
-                                  value={searchValue}
-                                  onChange={(event) => onSearchChange(event.currentTarget.value)}/>
-                    <Button variant="primary" type="submit" onClick={onSearchSubmit} className={"ms-3"}>
-                        Submit
-                    </Button>
+                <Form className={"mb-3 w-100"}>
+                    <div className={"d-flex flex-wrap align-items-center justify-content-between"}>
+                        <DatePicker
+                            value={selectedDayRange}
+                            onChange={setSelectedDayRange}
+                            inputPlaceholder={"Filter by date range"}
+                            shouldHighlightWeekends
+                            formatInputText={getFormatInputText}
+                        />
+                        <div className={"d-flex"}>
+                            <Form.Control placeholder="Search..."
+                                          value={searchValue}
+                                          onChange={(event) => onSearchChange(event.currentTarget.value)}/>
+                            <Button variant="primary" type="submit" onClick={onSearchSubmit} className={"ms-3"}>
+                                Submit
+                            </Button>
+                        </div>
                     </div>
-                </div>
-            </Form>
+                </Form>
             </Col>
         </Row>
     )
