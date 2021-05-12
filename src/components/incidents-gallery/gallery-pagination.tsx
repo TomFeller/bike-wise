@@ -10,7 +10,7 @@ type IProps = {
 const GalleryPagination: React.FC<IProps> = ({length, pageIndex}) => {
     const history = useHistory();
     let items = [];
-    const navigate = (index: number) => history.push(`/gallery/${index}`);
+    const navigate = (index: number) => history.push(`/gallery/${index}/`);
    
     for (let number = pageIndex; number <= length + pageIndex; number++) {
         items.push(

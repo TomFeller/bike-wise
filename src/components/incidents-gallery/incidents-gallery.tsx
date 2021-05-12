@@ -37,13 +37,13 @@ export const IndicatesGallery: React.FC = () => {
 
     const onDateChange = useCallback(() => {
         if (fromDate > 0 && toDate > 0) {
-            history.push(`/gallery/${1}?from=${fromDate}&to${toDate}`);
+            history.push(`/gallery/${1}?from=${fromDate}&to=${toDate}`);
         }
     }, [fromDate, history, toDate]);
 
     const isLoading = fetch.status === 'loading';
     const isError = fetch.status === 'error';
-    const noIncidentsFound = fetch.status === 'loaded' && fetch.payload.incidents.length === 0
+    const noIncidentsFound = fetch.status === 'loaded' && fetch.payload.incidents?.length === 0
 
     useEffect(() => {
         if (total.status === "loaded") {
