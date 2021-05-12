@@ -5,11 +5,10 @@ import GalleryLoading from "./gallery-loading";
 import GalleryItems from "./gallery-items";
 import GallerySearchForm from "./gallery-search-form";
 import GalleryNoResults from "./gallery-no-results";
-import "./incidents-gallery.scss";
 import GalleryPagination from "./gallery-pagination";
 import useTotalIncidentsService from "../../services/total-incidents";
-import {MdError} from "react-icons/md"
 import ErrorMessage from "../error-message/error-message";
+import "./incidents-gallery.scss";
 
 export const IndicatesGallery: React.FC = () => {
     const history = useHistory();
@@ -24,7 +23,7 @@ export const IndicatesGallery: React.FC = () => {
     const [toDate, setToDate] = useState<number>(-1);
     const [totalIncidents, setTotalIncidents] = useState(0);
     const fetch = useIncidentsService(-1, pageIndex, query || "", fromDate, toDate);
-    // const total = useTotalIncidentsService();
+    const total = useTotalIncidentsService();
 
     const onSearchChange = (value: string) => {
         setSearchValue(value);
@@ -46,12 +45,12 @@ export const IndicatesGallery: React.FC = () => {
     const isError = fetch.status === 'error';
     const noIncidentsFound = fetch.status === 'loaded' && fetch.payload.incidents.length === 0
 
-    // useEffect(() => {
-    //     if (total.status === "loaded") {
-    //         setTotalIncidents(total.payload.incidents.length);
-    //     }
-    //
-    // }, [total.status])
+    useEffect(() => {
+        if (total.status === "loaded") {
+            setTotalIncidents(total.payload.incidents.length);
+        }
+
+    }, [total.status])
 
 
     useEffect(() => {

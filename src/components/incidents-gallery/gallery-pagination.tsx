@@ -11,6 +11,7 @@ const GalleryPagination: React.FC<IProps> = ({length, pageIndex}) => {
     const history = useHistory();
     let items = [];
     const navigate = (index: number) => history.push(`/gallery/${index}`);
+   
     for (let number = pageIndex; number <= length + pageIndex; number++) {
         items.push(
             <Pagination.Item key={number}
@@ -24,20 +25,19 @@ const GalleryPagination: React.FC<IProps> = ({length, pageIndex}) => {
         );
     }
 
-
     return (
         <div className={"d-flex justify-content-center"}>
-        <Pagination size={"sm"}>
-            {pageIndex > 1 &&
-            <Pagination.Prev onClick={() => navigate(pageIndex - 1)}>{"<"}</Pagination.Prev>
-            }
-            {items}
-            <Pagination.Next onClick={() => navigate(pageIndex + 1)}>{">"}</Pagination.Next>
-        </Pagination>
+            <Pagination size={"sm"}>
+                {pageIndex > 1 &&
+                <Pagination.Prev onClick={() => navigate(pageIndex - 1)}>{"<"}</Pagination.Prev>
+                }
+                {items}
+                <Pagination.Next onClick={() => navigate(pageIndex + 1)}>{">"}</Pagination.Next>
+            </Pagination>
         </div>
     )
 }
 
-const itemStyle = {width:"32px", height:"32px"}
+const itemStyle = {width: "32px", height: "32px"}
 
 export default GalleryPagination;
