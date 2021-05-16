@@ -7,7 +7,7 @@ import THUMBNAIL from "../../assets/thumbnail.jpg";
 import Map from "../map/map";
 import IncidentDetails from "./incident-details";
 
-const Incident: React.FC<IIncident> = (
+const Incident: React.FC<IIncident & {lat?: number, lng?: number}> = (
     {
         id,
         title,
@@ -16,11 +16,15 @@ const Incident: React.FC<IIncident> = (
         description,
         occurred_at,
         updated_at,
+        lat,
+        lng
     }) => {
     const {image_url} = media;
     const locationService = useLocationsService()
-    const coordinates = locationService.status === "loaded" ? locationService.payload.features?.find((item: any) => item.properties.id === id).geometry.coordinates : ""
-    const location = {address: address, lat: coordinates[0], lng: coordinates[1]};
+    const coordinates = locationService.status === "loaded" ? locationService.payload.features?.find((item: any) => item.properties.id === id)?.geometry.coordinates : ""
+
+    const location = {address: address, lat: lat || coordinates[0], lng: lng || coordinates[1]};
+
     return (
         <Row>
             <Col xs={12} className={"align-left py-5"}>

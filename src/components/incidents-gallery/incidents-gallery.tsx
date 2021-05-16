@@ -9,6 +9,8 @@ import GalleryPagination from "./gallery-pagination";
 import useTotalIncidentsService from "../../services/total-incidents";
 import ErrorMessage from "../error-message/error-message";
 import "./incidents-gallery.scss";
+import useTotalService from "../../services/total-incidents";
+import _ from 'lodash';
 
 export const IndicatesGallery: React.FC = () => {
     const history = useHistory();
@@ -22,8 +24,8 @@ export const IndicatesGallery: React.FC = () => {
     const [fromDate, setFromDate] = useState<number>(-1);
     const [toDate, setToDate] = useState<number>(-1);
     const [totalIncidents, setTotalIncidents] = useState(0);
-    const fetch = useIncidentsService(-1, pageIndex, query || "", fromDate, toDate);
-    const total = useTotalIncidentsService();
+    const fetchIncidents = useIncidentsService(-1, pageIndex, query || "", fromDate, toDate);
+    const total = useTotalService(query || "", fromDate, toDate);
 
     const onSearchChange = (value: string) => {
         setSearchValue(value);
@@ -41,23 +43,20 @@ export const IndicatesGallery: React.FC = () => {
         }
     }, [fromDate, history, toDate]);
 
-    const isLoading = fetch.status === 'loading';
-    const isError = fetch.status === 'error';
-    const noIncidentsFound = fetch.status === 'loaded' && fetch.payload.incidents?.length === 0
+    const isLoading = fetchIncidents.status === 'loading';
+    const isError = fetchIncidents.status === 'error';
+    const noIncidentsFound = fetchIncidents.status === 'loaded' && fetchIncidents.payload.incidents?.length === 0
 
     useEffect(() => {
         if (total.status === "loaded") {
-            setTotalIncidents(total.payload.incidents.length);
+            setTotalIncidents(total.payload.stolen);
         }
-
     }, [total.status])
-
 
     useEffect(() => {
         const updateDates = fromDate > 0 && toDate > 0 && !search.includes(fromDate.toString());
         if (updateDates) onDateChange();
     }, [fromDate, search, onDateChange, toDate]);
-
 
     return (
         <div className={'container incidents-gallery'}>
@@ -69,7 +68,7 @@ export const IndicatesGallery: React.FC = () => {
 
             {isLoading && <GalleryLoading/>}
 
-            {fetch.status === 'loaded' && <>
+            {fetchIncidents.status === 'loaded' && <>
                 <GallerySearchForm searchValue={searchValue}
                                    pageIndex={pageIndex}
                                    onSearchChange={onSearchChange}
@@ -77,9 +76,9 @@ export const IndicatesGallery: React.FC = () => {
                                    setFromDate={setFromDate}
                                    setToDate={setToDate}/>
 
-                {noIncidentsFound ? <GalleryNoResults/> : <GalleryItems incidents={fetch.payload.incidents}/>}
+                {noIncidentsFound ? <GalleryNoResults/> : <GalleryItems incidents={fetchIncidents.payload.incidents}/>}
 
-                {fetch.payload.incidents.length > 9 && pageIndex > 0 &&
+                {fetchIncidents.payload.incidents.length > 9 && pageIndex > 0 &&
                 <GalleryPagination length={5} pageIndex={pageIndex}/>}
             </>}
 
