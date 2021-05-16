@@ -1,0 +1,25 @@
+.autocomplete {
+  position: absolute;
+  top: calc(100% + 10px);
+  background-color: #fff;
+  box-shadow: 0 0 2px 0 #000;
+  text-align: left;
+  font-size: 14px;
+  &.loading {
+    box-shadow: none;
+    right: 12px;
+    top: 12px;
+  }
+  p {
+    margin: 0;
+    cursor: pointer;
+    padding: 5px 10px;
+    &.hover {
+      background-color: #cfcfcf;
+      color: #000;
+    }
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+}
