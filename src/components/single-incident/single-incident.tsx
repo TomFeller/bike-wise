@@ -17,9 +17,6 @@ export const SingleIncident: React.FC = () => {
             .then(data => setV3Bike(data?.bike))
     }, [incidentId]);
 
-
-    console.log("v3Bike", v3Bike)
-
     return (
         <div className={"container"}>
             {fetchItem.status === 'loading' && <SingleLoading/>}
